@@ -1,68 +1,119 @@
 import type {ReactNode} from 'react';
-import clsx from 'clsx';
+import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 
+// Heroicons (v2) — escolha outline para ficar parecido com a imagem
+import {
+  RectangleStackIcon,
+  TableCellsIcon,
+  CursorArrowRaysIcon,
+  PencilSquareIcon,
+  ClipboardDocumentListIcon,
+  Squares2X2Icon,
+  BellIcon,
+  ChartBarIcon,
+  WrenchScrewdriverIcon,
+} from '@heroicons/react/24/outline';
+
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
-  description: ReactNode;
+  description: string;
+  href?: string;
+  Icon: React.ComponentType<React.ComponentProps<'svg'>>;
 };
 
-const FeatureList: FeatureItem[] = [
+const FEATURE_LIST: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: (
-      <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
-      </>
-    ),
+    title: 'Resources',
+    description: 'Crie uma interface CRUD para o seu model Eloquent.',
+    href: '/docs',
+    Icon: RectangleStackIcon,
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
-    ),
+    title: 'Table columns',
+    description: 'Veja uma lista de todas as colunas de tabela disponíveis, que fornecem diferentes conteúdos de célula.',
+    href: '/docs',
+    Icon: TableCellsIcon,
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
-      </>
-    ),
+    title: 'Action buttons',
+    description: 'Aprenda como personalizar a aparência de um botão e abrir modals e slide-overs.',
+    href: '/docs',
+    Icon: CursorArrowRaysIcon,
+  },
+  {
+    title: 'Form fields',
+    description: 'Veja uma lista de todos os campos disponíveis para criar Forms interativos.',
+    href: '/docs',
+    Icon: PencilSquareIcon,
+  },
+  {
+    title: 'Infolist entries',
+    description: 'Veja uma lista de todas as entradas de Infolist disponíveis para exibir informações somente leitura.',
+    href: '/docs',
+    Icon: ClipboardDocumentListIcon,
+  },
+  {
+    title: 'Schema layouts',
+    description: 'Veja uma lista de todos os componentes de layout disponíveis para organizar seus Forms e Infolists.',
+    href: '/docs',
+    Icon: Squares2X2Icon,
+  },
+  {
+    title: 'Notifications',
+    description: 'Notifique seus usuários sobre eventos importantes, entregando mensagens em tempo real usando o Livewire.',
+    href: '/docs',
+    Icon: BellIcon,
+  },
+  {
+    title: 'Widgets',
+    description: 'Veja uma lista de todos os Widgets disponíveis para criar dashboards.',
+    href: '/docs',
+    Icon: ChartBarIcon,
+  },
+  {
+    title: 'Panel configuration',
+    description: 'Aprenda como o arquivo de configuração pode personalizar o seu Panel.',
+    href: '/docs',
+    Icon: WrenchScrewdriverIcon,
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
-  return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
-      </div>
+function FeatureCard({title, description, href, Icon}: FeatureItem) {
+  const content = (
+    <>
+      <span className={styles.iconWrap} aria-hidden="true">
+        <Icon className={styles.icon} />
+      </span>
+
+      <span className={styles.text}>
+        <Heading as="h3" className={styles.title}>
+          {title}
+        </Heading>
+        <span className={styles.description}>{description}</span>
+      </span>
+    </>
+  );
+
+  return href ? (
+    <Link className={styles.card} to={href}>
+      {content}
+    </Link>
+  ) : (
+    <div className={styles.card} role="group">
+      {content}
     </div>
   );
 }
 
 export default function HomepageFeatures(): ReactNode {
   return (
-    <section className={styles.features}>
+    <section className={styles.features} aria-label="Atalhos da documentação">
       <div className="container">
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
+        <div className={styles.grid}>
+          {FEATURE_LIST.map((item) => (
+            <FeatureCard key={item.title} {...item} />
           ))}
         </div>
       </div>

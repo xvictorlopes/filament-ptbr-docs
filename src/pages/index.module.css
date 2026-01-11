@@ -12,12 +12,36 @@
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 2rem 0;
   }
 }
 
+/* Container para limitar a largura do conteúdo do hero */
+.heroContent {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Aviso (Admonition) com espaçamento consistente */
+.notice {
+  margin: 1rem auto;
+  max-width: 900px;
+  text-align: left;
+}
+
+/* CTA buttons */
 .buttons {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.helperText {
+  margin: 0.75rem auto 0;
+  max-width: 900px;
+  opacity: 0.9;
+  font-size: 0.95rem;
 }
